@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>今鶴安平顧客滿意度回饋</title>
+<style>
+  :root{
+    --navy:#162032;
+    --navy-light:#233047;
+    --gold:#D4A843;
+    --gold-dark:#B8862E;
+    --parchment:#EDE8DC;
+    --text:#2A2A2A;
+    --muted:#7A7A7A;
+    --danger:#C0455A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+    background:var(--parchment);
+    color:var(--text);
+  }
+  .header{
+    background:var(--navy);
+    color:#fff;
+    padding:36px 20px 28px;
+    text-align:center;
+  }
+  .header h1{
+    margin:0 0 8px;
+    font-size:22px;
+    letter-spacing:1px;
+    color:var(--gold);
+  }
+  .header p{
+    margin:0;
+    font-size:14px;
+    color:#cfd4de;
+    line-height:1.6;
+  }
+  form{
+    max-width:560px;
+    margin:0 auto;
+    padding:20px 16px 60px;
+  }
+  .section{
+    background:#fff;
+    border-radius:14px;
+    padding:20px 18px;
+    margin-bottom:16px;
+    box-shadow:0 2px 8px rgba(22,32,50,0.08);
+  }
+  .section-title{
+    font-size:16px;
+    font-weight:700;
+    color:var(--navy);
+    margin:0 0 4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-title .bar{
+    width:4px;
+    height:16px;
+    background:var(--gold);
+    border-radius:2px;
+    display:inline-block;
+  }
+  .section-sub{
+    font-size:12px;
+    color:var(--muted);
+    margin:0 0 16px;
+  }
+  .rating-row{
+    margin-bottom:18px;
+  }
+  .rating-row:last-child{margin-bottom:0;}
+  .rating-label{
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  .rating-options{
+    display:flex;
+    gap:6px;
+  }
+  .rating-options label{
+    flex:1;
+    text-align:center;
+  }
+  .rating-options input{
+    position:absolute;
+    opacity:0;
+    width:0;
+    height:0;
+  }
+  .rating-options.wrap-2{
+    flex-wrap:wrap;
+  }
+  .rating-options.wrap-2 label{
+    flex:1 1 18%;
+  }
+  .rating-options.wrap-2 label:last-child{
+    flex:1 1 100%;
+    margin-top:4px;
+  }
+  .rating-options .pill{
+    display:block;
+    padding:10px 2px;
+    border-radius:10px;
+    border:1.5px solid #E0DCD0;
+    font-size:11px;
+    line-height:1.3;
+    color:var(--muted);
+    background:#FBFAF7;
+    transition:all .15s ease;
+    cursor:pointer;
+    user-select:none;
+  }
+  .rating-options input:checked + .pill{
+    background:var(--gold);
+    border-color:var(--gold-dark);
+    color:#fff;
+    font-weight:700;
+  }
+  .text-q{margin-bottom:18px;}
+  .text-q:last-child{margin-bottom:0;}
+  .text-q label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:6px;
+    color:var(--text);
+  }
+  .text-q .hint{
+    font-size:11.5px;
+    color:var(--muted);
+    margin:2px 0 8px;
+    line-height:1.5;
+  }
+  textarea, input[type="text"], input[type="tel"], input[type="date"], input[type="number"], select{
+    width:100%;
+    border:1.5px solid #E0DCD0;
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:14px;
+    font-family:inherit;
+    resize:vertical;
+    background:#FBFAF7;
+  }
+  textarea:focus, input:focus, select:focus{
+    outline:none;
+    border-color:var(--gold-dark);
+  }
+
+  /* 直式選項清單（單選／複選卡片） */
+  .choice-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .choice-list input{
+    position:absolute;
+    opacity:0;
+    width:0;
+    height:0;
+  }
+  .choice-list .choice-card{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1.5px solid #E0DCD0;
+    background:#FBFAF7;
+    font-size:14px;
+    color:var(--text);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .choice-list .choice-card .mark{
+    width:18px;
+    height:18px;
+    flex:0 0 18px;
+    border-radius:50%;
+    border:1.5px solid #C9C3B4;
+    background:#fff;
+    position:relative;
+  }
+  .choice-list input[type="checkbox"] + .choice-card .mark{
+    border-radius:5px;
+  }
+  .choice-list input:checked + .choice-card{
+    background:#FBF3DF;
+    border-color:var(--gold-dark);
+  }
+  .choice-list input:checked + .choice-card .mark{
+    background:var(--gold-dark);
+    border-color:var(--gold-dark);
+  }
+  .choice-list input:checked + .choice-card .mark::after{
+    content:"";
+    position:absolute;
+    left:5px; top:1px;
+    width:5px; height:9px;
+    border:solid #fff;
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+
+  /* 方塊式選項（省空間，適合選項數較多時使用） */
+  .choice-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .choice-grid input{
+    position:absolute;
+    opacity:0;
+    width:0;
+    height:0;
+  }
+  .choice-grid .tile{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px 14px;
+    border-radius:10px;
+    border:1.5px solid #E0DCD0;
+    background:#FBFAF7;
+    font-size:13px;
+    color:var(--text);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .choice-grid input:checked + .tile{
+    background:var(--gold);
+    border-color:var(--gold-dark);
+    color:#fff;
+    font-weight:700;
+  }
+
+  .other-input{
+    margin-top:8px;
+    display:none;
+  }
+  .other-input.show{display:block;}
+
+  .conditional-block{
+    display:none;
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px dashed #E0DCD0;
+  }
+  .conditional-block.show{display:block;}
+
+  /* 滑桿 */
+  .slider-wrap{
+    padding-top:8px;
+  }
+  .slider-value{
+    text-align:center;
+    font-size:28px;
+    font-weight:700;
+    color:var(--gold-dark);
+    margin-bottom:6px;
+  }
+  input[type="range"]{
+    width:100%;
+    accent-color:var(--gold-dark);
+  }
+  .slider-scale{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  .privacy-note{
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.6;
+    margin:0 0 14px;
+    background:#F6F2E8;
+    padding:10px 12px;
+    border-radius:8px;
+  }
+
+  .submit-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:var(--navy);
+    color:var(--gold);
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+  }
+  .submit-btn:disabled{
+    opacity:0.6;
+  }
+  .required-star{color:var(--danger);}
+  .status-msg{
+    text-align:center;
+    font-size:13px;
+    margin-top:12px;
+    min-height:18px;
+    color:var(--muted);
+  }
+  .thankyou{
+    max-width:560px;
+    margin:60px auto;
+    padding:40px 24px;
+    text-align:center;
+    display:none;
+  }
+  .thankyou h2{
+    color:var(--navy);
+    font-size:20px;
+  }
+  .thankyou p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+  }
+  .google-review-link{
+    display:inline-block;
+    margin-top:24px;
+    padding:14px 22px;
+    border-radius:999px;
+    background:var(--navy);
+    color:var(--gold);
+    font-size:14px;
+    font-weight:700;
+    text-decoration:none;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>今鶴安平 JiN.HER</h1>
+  <p>感謝您今天選擇到今鶴用餐❤️<br>誠摯邀請您花約1-2分鐘留下您的想法，幫助我們做得更好！</p>
+</div>
+
+<form id="feedbackForm">
+
+  <div class="section">
+    <p class="section-title"><span class="bar"></span>整體體驗評分</p>
+    <p class="section-sub">此區塊為必填</p>
+    <div id="overallGroup"></div>
+  </div>
+
+  <div class="section">
+    <p class="section-title"><span class="bar"></span>各餐點類別評分</p>
+    <p class="section-sub">此區塊為必填</p>
+    <div id="dishGroup"></div>
+  </div>
+
+  <div class="section">
+    <p class="section-title"><span class="bar"></span>您的想法</p>
+    <p class="section-sub">以下皆為選填，歡迎多分享細節</p>
+
+    <div class="text-q">
+      <label for="feedback_neg">覺得不滿意的地方能否給予回饋，讓我們有更好的機會改善！</label>
+      <textarea id="feedback_neg" name="feedback_neg" rows="3" placeholder="歡迎分享您的想法～"></textarea>
+    </div>
+
+    <div class="text-q">
+      <label for="fav_dish">今天最喜歡的餐點是什麼？</label>
+      <input type="text" id="fav_dish" name="fav_dish">
+    </div>
+
+    <div class="text-q">
+      <label>是否有表現不錯的夥伴想要鼓勵❤️（可複選）</label>
+      <div class="choice-grid" id="staffGroup"></div>
+    </div>
+
+    <div class="text-q">
+      <label for="suggestion">對於本店或服務夥伴的建議</label>
+      <textarea id="suggestion" name="suggestion" rows="3" placeholder="有任何建議都歡迎告訴我們～"></textarea>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title"><span class="bar"></span>想多了解您一點☺️</p>
+    <p class="section-sub">以下皆為選填，幫助我們更了解顧客</p>
+
+    <div class="text-q">
+      <label for="visit_count">這是您第幾次到本店用餐？</label>
+      <input type="number" id="visit_count" name="visit_count" min="1" step="1" placeholder="請輸入次數">
+    </div>
+
+    <div class="text-q">
+      <label>是否為今鶴會員呢？</label>
+      <div class="choice-list" id="memberGroup"></div>
+
+      <div class="conditional-block" id="nonMemberBlock">
+        <label>承上題，如非會員，我們想了解選擇不入會的原因？</label>
+        <div class="choice-list" id="nonMemberReasonGroup"></div>
+        <div class="other-input" id="nonMemberOtherWrap">
+          <input type="text" id="non_member_reason_other" name="non_member_reason_other" placeholder="歡迎補充告訴我們原因！">
+        </div>
+      </div>
+    </div>
+
+    <div class="text-q">
+      <label>您是從哪裡得知本店的呢？（可複選）</label>
+      <div class="choice-grid" id="channelGroup"></div>
+      <div class="other-input" id="channelOtherWrap">
+        <input type="text" id="know_channel_other" name="know_channel_other" placeholder="歡迎補充告訴我們原因！">
+      </div>
+    </div>
+
+    <div class="text-q">
+      <label>請問您今天用餐的目的是？</label>
+      <div class="choice-grid" id="purposeGroup"></div>
+      <div class="other-input" id="purposeOtherWrap">
+        <input type="text" id="visit_purpose_other" name="visit_purpose_other" placeholder="歡迎補充告訴我們原因！">
+      </div>
+    </div>
+
+    <div class="text-q">
+      <label>請問您是否為台南人？</label>
+      <div class="choice-list" id="tainanGroup"></div>
+    </div>
+
+    <div class="text-q">
+      <label for="region">承上題，如住台南的居住區在哪裡呢？非台南人也可以告訴我們您從哪裡來唷！</label>
+      <input type="text" id="region" name="region" placeholder="例如：台南市東區、高雄市…">
+    </div>
+
+    <div class="text-q">
+      <label>您再次前來本店用餐的意願</label>
+      <div class="slider-wrap">
+        <div class="slider-value" id="returnIntentValue">10</div>
+        <input type="range" id="return_intent" name="return_intent" min="1" max="10" step="0.5" value="10">
+        <div class="slider-scale"><span>1（不太願意）</span><span>10（非常願意）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title"><span class="bar"></span>聯絡資訊</p>
+    <p class="privacy-note">以下資訊為選填，僅用於行銷優惠活動發送，不會用於其他用途。</p>
+
+    <div class="text-q">
+      <label for="cust_name">姓名</label>
+      <input type="text" id="cust_name" name="cust_name">
+    </div>
+
+    <div class="text-q">
+      <label>性別</label>
+      <div class="choice-list" id="genderGroup"></div>
+    </div>
+
+    <div class="text-q">
+      <label for="birthday">生日</label>
+      <input type="date" id="birthday" name="birthday">
+    </div>
+
+    <div class="text-q">
+      <label for="phone">電話</label>
+      <input type="tel" id="phone" name="phone">
+    </div>
+
+    <div class="text-q">
+      <label for="line_name">LINE 的名稱</label>
+      <input type="text" id="line_name" name="line_name">
+    </div>
+  </div>
+
+  <input type="hidden" id="duration_sec" name="duration_sec" value="">
+
+  <button type="submit" class="submit-btn" id="submitBtn">送出回饋</button>
+  <p class="status-msg" id="statusMsg"></p>
+</form>
+
+<div class="thankyou" id="thankyou">
+  <h2>謝謝您的回饋！</h2>
+  <p>您的想法對今鶴非常重要，<br>期待很快再次為您服務。</p>
+  <p>歡迎您們至Google給予夥伴們鼓勵<br>並分享您今日的用餐體驗✨</p>
+  <a class="google-review-link" href="https://g.page/r/CTksugFCY1NiEAE/review" target="_blank" rel="noopener">👉🏻點我前往Google評論留言👈🏻</a>
+</div>
+
+<script>
+  const START_TIME = Date.now();
+
+  // Apps Script「網頁應用程式」網址（已設定完成）
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYhgvwu-YRBh7BgEBeaGdk0zGuFZBDrJFWMNawr46SimTkWLidWdyfTjIR7qv77DtK/exec";
+
+  const RATING_OPTIONS = ["非常滿意","滿意","普通","不滿意","非常不滿意"];
+
+  const OVERALL_ITEMS = [
+    { key: "overall", label: "整體" },
+    { key: "environment", label: "環境" },
+    { key: "service", label: "服務" },
+    { key: "food", label: "餐點" },
+    { key: "price", label: "價位" },
+  ];
+
+  const DISH_ITEMS = [
+    { key: "salad_appetizer", label: "沙拉／前菜" },
+    { key: "soup_bread", label: "湯品／麵包" },
+    { key: "main", label: "主餐" },
+    { key: "dessert", label: "甜點" },
+    { key: "drink", label: "飲品" },
+  ];
+
+  const DISH_RATING_OPTIONS = RATING_OPTIONS.concat(["無點購此類別餐點"]);
+
+  function renderGroup(containerId, items, options, wrapClass) {
+    const container = document.getElementById(containerId);
+    const optsClass = "rating-options" + (wrapClass ? " " + wrapClass : "");
+    container.innerHTML = items.map(item => `
+      <div class="rating-row">
+        <div class="rating-label">${item.label} <span class="required-star">*</span></div>
+        <div class="${optsClass}">
+          ${options.map((opt) => `
+            <label>
+              <input type="radio" name="${item.key}" value="${opt}" required>
+              <span class="pill">${opt}</span>
+            </label>
+          `).join("")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  renderGroup("overallGroup", OVERALL_ITEMS, RATING_OPTIONS);
+  renderGroup("dishGroup", DISH_ITEMS, DISH_RATING_OPTIONS, "wrap-2");
+
+  // 直式選項清單渲染（單選 radio 或複選 checkbox）
+  function renderChoiceList(containerId, name, options, type) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = options.map((opt, i) => `
+      <label>
+        <input type="${type}" name="${name}" value="${opt}" id="${name}_${i}">
+        <span class="choice-card"><span class="mark"></span>${opt}</span>
+      </label>
+    `).join("");
+  }
+
+  // 方塊式選項渲染（單選 radio 或複選 checkbox），比直式清單省空間
+  function renderChoiceGrid(containerId, name, options, type) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = options.map((opt, i) => `
+      <label>
+        <input type="${type}" name="${name}" value="${opt}" id="${name}_${i}">
+        <span class="tile">${opt}</span>
+      </label>
+    `).join("");
+  }
+
+  // 是否有表現不錯的夥伴（可複選，方塊式）
+  renderChoiceGrid("staffGroup", "staff_shoutout", ["NN","Anna","小美","旻柔","小莫","小白","小堤","松鼠","小林","樂樂"], "checkbox");
+
+  // 是否為今鶴會員
+  renderChoiceList("memberGroup", "is_member", ["是","否"], "radio");
+
+  // 非會員原因
+  renderChoiceList("nonMemberReasonGroup", "non_member_reason", ["同桌已有會員","其他"], "radio");
+
+  // 得知管道（可複選，方塊式）
+  renderChoiceGrid("channelGroup", "know_channel", ["網路資訊 Google","網路資訊 FB","網路資訊 IG","路過看到","親友介紹","其他管道"], "checkbox");
+
+  // 用餐目的（方塊式）
+  renderChoiceGrid("purposeGroup", "visit_purpose", ["單純用餐","情侶聚餐","朋友聚餐","生日聚會","家庭聚會","節日慶祝","其他"], "radio");
+
+  // 是否為台南人
+  renderChoiceList("tainanGroup", "tainan_status", ["目前住在台南","來台南觀光旅遊","來台南出差工作"], "radio");
+
+  // 性別
+  renderChoiceList("genderGroup", "gender", ["女","男","不透露"], "radio");
+
+  // 是否為會員 -> 顯示/隱藏「非會員原因」區塊
+  document.getElementById("memberGroup").addEventListener("change", function (e) {
+    const block = document.getElementById("nonMemberBlock");
+    if (e.target.value === "否") {
+      block.classList.add("show");
+    } else {
+      block.classList.remove("show");
+      document.getElementById("nonMemberOtherWrap").classList.remove("show");
+    }
+  });
+
+  // 非會員原因 -> 選「其他」時顯示補充文字欄
+  document.getElementById("nonMemberReasonGroup").addEventListener("change", function (e) {
+    const wrap = document.getElementById("nonMemberOtherWrap");
+    if (e.target.value === "其他") {
+      wrap.classList.add("show");
+    } else {
+      wrap.classList.remove("show");
+    }
+  });
+
+  // 得知管道 -> 勾選「其他管道」時顯示補充文字欄
+  document.getElementById("channelGroup").addEventListener("change", function () {
+    const checked = document.querySelectorAll('input[name="know_channel"]:checked');
+    const isOtherChecked = Array.from(checked).some(el => el.value === "其他管道");
+    document.getElementById("channelOtherWrap").classList.toggle("show", isOtherChecked);
+  });
+
+  // 用餐目的 -> 選「其他」時顯示補充文字欄
+  document.getElementById("purposeGroup").addEventListener("change", function (e) {
+    const wrap = document.getElementById("purposeOtherWrap");
+    if (e.target.value === "其他") {
+      wrap.classList.add("show");
+    } else {
+      wrap.classList.remove("show");
+    }
+  });
+
+  // 回訪意願滑桿數值即時顯示
+  const returnIntentInput = document.getElementById("return_intent");
+  const returnIntentValue = document.getElementById("returnIntentValue");
+  returnIntentInput.addEventListener("input", function () {
+    returnIntentValue.textContent = returnIntentInput.value;
+  });
+
+  const form = document.getElementById("feedbackForm");
+  const statusMsg = document.getElementById("statusMsg");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (SCRIPT_URL.indexOf("PASTE_YOUR_APPS_SCRIPT") === 0) {
+      statusMsg.textContent = "尚未設定資料接收網址，請參考 SETUP 指南完成部署。";
+      statusMsg.style.color = "#C0455A";
+      return;
+    }
+
+    document.getElementById("duration_sec").value = Math.round((Date.now() - START_TIME) / 1000);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "送出中...";
+
+    const formData = new FormData(form);
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors",
+    })
+      .then(() => {
+        form.style.display = "none";
+        document.getElementById("thankyou").style.display = "block";
+        window.scrollTo(0, 0);
+      })
+      .catch(() => {
+        statusMsg.textContent = "送出失敗，請檢查網路連線後再試一次。";
+        statusMsg.style.color = "#C0455A";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "送出回饋";
+      });
+  });
+</script>
+
+</body>
+</html>
