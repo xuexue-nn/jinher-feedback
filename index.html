@@ -155,7 +155,6 @@
     outline:none;
     border-color:var(--gold-dark);
   }
-
   /* 直式選項清單（單選／複選卡片） */
   .choice-list{
     display:flex;
@@ -211,7 +210,6 @@
     border-width:0 2px 2px 0;
     transform:rotate(45deg);
   }
-
   /* 方塊式選項（省空間，適合選項數較多時使用） */
   .choice-grid{
     display:flex;
@@ -245,13 +243,11 @@
     color:#fff;
     font-weight:700;
   }
-
   .other-input{
     margin-top:8px;
     display:none;
   }
   .other-input.show{display:block;}
-
   .conditional-block{
     display:none;
     margin-top:16px;
@@ -259,7 +255,6 @@
     border-top:1px dashed #E0DCD0;
   }
   .conditional-block.show{display:block;}
-
   /* 滑桿 */
   .slider-wrap{
     padding-top:8px;
@@ -282,7 +277,6 @@
     color:var(--muted);
     margin-top:4px;
   }
-
   .privacy-note{
     font-size:11.5px;
     color:var(--muted);
@@ -292,7 +286,6 @@
     padding:10px 12px;
     border-radius:8px;
   }
-
   .submit-btn{
     width:100%;
     padding:16px;
@@ -347,64 +340,51 @@
 </style>
 </head>
 <body>
-
 <div class="header">
   <h1>今鶴安平 JiN.HER</h1>
   <p>感謝您今天選擇到今鶴用餐❤️<br>誠摯邀請您花約1-2分鐘留下您的想法，幫助我們做得更好！</p>
 </div>
-
 <form id="feedbackForm">
-
   <div class="section">
     <p class="section-title"><span class="bar"></span>整體體驗評分</p>
     <p class="section-sub">此區塊為必填</p>
     <div id="overallGroup"></div>
   </div>
-
   <div class="section">
     <p class="section-title"><span class="bar"></span>各餐點類別評分</p>
     <p class="section-sub">此區塊為必填</p>
     <div id="dishGroup"></div>
   </div>
-
   <div class="section">
     <p class="section-title"><span class="bar"></span>您的想法</p>
     <p class="section-sub">以下皆為選填，歡迎多分享細節</p>
-
     <div class="text-q">
       <label for="feedback_neg">覺得不滿意的地方能否給予回饋，讓我們有更好的機會改善！</label>
       <textarea id="feedback_neg" name="feedback_neg" rows="3" placeholder="歡迎分享您的想法～"></textarea>
     </div>
-
     <div class="text-q">
       <label for="fav_dish">今天最喜歡的餐點是什麼？</label>
       <input type="text" id="fav_dish" name="fav_dish">
     </div>
-
     <div class="text-q">
       <label>是否有表現不錯的夥伴想要鼓勵❤️（可複選）</label>
       <div class="choice-grid" id="staffGroup"></div>
     </div>
-
     <div class="text-q">
       <label for="suggestion">對於本店或服務夥伴的建議</label>
       <textarea id="suggestion" name="suggestion" rows="3" placeholder="有任何建議都歡迎告訴我們～"></textarea>
     </div>
   </div>
-
   <div class="section">
     <p class="section-title"><span class="bar"></span>想多了解您一點☺️</p>
     <p class="section-sub">以下皆為選填，幫助我們更了解顧客</p>
-
     <div class="text-q">
       <label for="visit_count">這是您第幾次到本店用餐？</label>
       <input type="number" id="visit_count" name="visit_count" min="1" step="1" placeholder="請輸入次數">
     </div>
-
     <div class="text-q">
       <label>是否為今鶴會員呢？</label>
       <div class="choice-list" id="memberGroup"></div>
-
       <div class="conditional-block" id="nonMemberBlock">
         <label>承上題，如非會員，我們想了解選擇不入會的原因？</label>
         <div class="choice-list" id="nonMemberReasonGroup"></div>
@@ -413,7 +393,6 @@
         </div>
       </div>
     </div>
-
     <div class="text-q">
       <label>您是從哪裡得知本店的呢？（可複選）</label>
       <div class="choice-grid" id="channelGroup"></div>
@@ -421,7 +400,6 @@
         <input type="text" id="know_channel_other" name="know_channel_other" placeholder="歡迎補充告訴我們原因！">
       </div>
     </div>
-
     <div class="text-q">
       <label>請問您今天用餐的目的是？</label>
       <div class="choice-grid" id="purposeGroup"></div>
@@ -429,17 +407,14 @@
         <input type="text" id="visit_purpose_other" name="visit_purpose_other" placeholder="歡迎補充告訴我們原因！">
       </div>
     </div>
-
     <div class="text-q">
       <label>請問您是否為台南人？</label>
       <div class="choice-list" id="tainanGroup"></div>
     </div>
-
     <div class="text-q">
       <label for="region">承上題，如住台南的居住區在哪裡呢？非台南人也可以告訴我們您從哪裡來唷！</label>
       <input type="text" id="region" name="region" placeholder="例如：台南市東區、高雄市…">
     </div>
-
     <div class="text-q">
       <label>您再次前來本店用餐的意願</label>
       <div class="slider-wrap">
@@ -449,58 +424,45 @@
       </div>
     </div>
   </div>
-
   <div class="section">
     <p class="section-title"><span class="bar"></span>聯絡資訊</p>
     <p class="privacy-note">以下資訊為選填，僅用於行銷優惠活動發送，不會用於其他用途。</p>
-
     <div class="text-q">
       <label for="cust_name">姓名</label>
       <input type="text" id="cust_name" name="cust_name">
     </div>
-
     <div class="text-q">
       <label>性別</label>
       <div class="choice-list" id="genderGroup"></div>
     </div>
-
     <div class="text-q">
       <label for="birthday">生日</label>
       <input type="date" id="birthday" name="birthday">
     </div>
-
     <div class="text-q">
       <label for="phone">電話</label>
       <input type="tel" id="phone" name="phone">
     </div>
-
     <div class="text-q">
       <label for="line_name">LINE 的名稱</label>
       <input type="text" id="line_name" name="line_name">
     </div>
   </div>
-
   <input type="hidden" id="duration_sec" name="duration_sec" value="">
-
   <button type="submit" class="submit-btn" id="submitBtn">送出回饋</button>
   <p class="status-msg" id="statusMsg"></p>
 </form>
-
 <div class="thankyou" id="thankyou">
   <h2>謝謝您的回饋！</h2>
   <p>您的想法對今鶴非常重要，<br>期待很快再次為您服務。</p>
   <p>歡迎您們至Google給予夥伴們鼓勵<br>並分享您今日的用餐體驗✨</p>
   <a class="google-review-link" href="https://g.page/r/CTksugFCY1NiEAE/review" target="_blank" rel="noopener">👉🏻點我前往Google評論留言👈🏻</a>
 </div>
-
 <script>
   const START_TIME = Date.now();
-
   // Apps Script「網頁應用程式」網址（已設定完成）
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYhgvwu-YRBh7BgEBeaGdk0zGuFZBDrJFWMNawr46SimTkWLidWdyfTjIR7qv77DtK/exec";
-
   const RATING_OPTIONS = ["非常滿意","滿意","普通","不滿意","非常不滿意"];
-
   const OVERALL_ITEMS = [
     { key: "overall", label: "整體" },
     { key: "environment", label: "環境" },
@@ -508,7 +470,6 @@
     { key: "food", label: "餐點" },
     { key: "price", label: "價位" },
   ];
-
   const DISH_ITEMS = [
     { key: "salad_appetizer", label: "沙拉／前菜" },
     { key: "soup_bread", label: "湯品／麵包" },
@@ -516,9 +477,7 @@
     { key: "dessert", label: "甜點" },
     { key: "drink", label: "飲品" },
   ];
-
   const DISH_RATING_OPTIONS = RATING_OPTIONS.concat(["無點購此類別餐點"]);
-
   function renderGroup(containerId, items, options, wrapClass) {
     const container = document.getElementById(containerId);
     const optsClass = "rating-options" + (wrapClass ? " " + wrapClass : "");
@@ -536,10 +495,8 @@
       </div>
     `).join("");
   }
-
   renderGroup("overallGroup", OVERALL_ITEMS, RATING_OPTIONS);
   renderGroup("dishGroup", DISH_ITEMS, DISH_RATING_OPTIONS, "wrap-2");
-
   // 直式選項清單渲染（單選 radio 或複選 checkbox）
   function renderChoiceList(containerId, name, options, type) {
     const container = document.getElementById(containerId);
@@ -550,7 +507,6 @@
       </label>
     `).join("");
   }
-
   // 方塊式選項渲染（單選 radio 或複選 checkbox），比直式清單省空間
   function renderChoiceGrid(containerId, name, options, type) {
     const container = document.getElementById(containerId);
@@ -561,28 +517,21 @@
       </label>
     `).join("");
   }
-
   // 是否有表現不錯的夥伴（可複選，方塊式）
-  renderChoiceGrid("staffGroup", "staff_shoutout", ["NN","Anna","小美","旻柔","小莫","小白","小堤","松鼠","小林","樂樂"], "checkbox");
-
+  // 2026-09-02更新：旻柔改名為小P；小林、樂樂、小堤已離職，從名單移除，改成7人
+  renderChoiceGrid("staffGroup", "staff_shoutout", ["NN","Anna","小美","小P","小莫","小白","松鼠"], "checkbox");
   // 是否為今鶴會員
   renderChoiceList("memberGroup", "is_member", ["是","否"], "radio");
-
   // 非會員原因
   renderChoiceList("nonMemberReasonGroup", "non_member_reason", ["同桌已有會員","其他"], "radio");
-
   // 得知管道（可複選，方塊式）
   renderChoiceGrid("channelGroup", "know_channel", ["網路資訊 Google","網路資訊 FB","網路資訊 IG","路過看到","親友介紹","其他管道"], "checkbox");
-
   // 用餐目的（方塊式）
   renderChoiceGrid("purposeGroup", "visit_purpose", ["單純用餐","情侶聚餐","朋友聚餐","生日聚會","家庭聚會","節日慶祝","其他"], "radio");
-
   // 是否為台南人
   renderChoiceList("tainanGroup", "tainan_status", ["目前住在台南","來台南觀光旅遊","來台南出差工作"], "radio");
-
   // 性別
   renderChoiceList("genderGroup", "gender", ["女","男","不透露"], "radio");
-
   // 是否為會員 -> 顯示/隱藏「非會員原因」區塊
   document.getElementById("memberGroup").addEventListener("change", function (e) {
     const block = document.getElementById("nonMemberBlock");
@@ -593,7 +542,6 @@
       document.getElementById("nonMemberOtherWrap").classList.remove("show");
     }
   });
-
   // 非會員原因 -> 選「其他」時顯示補充文字欄
   document.getElementById("nonMemberReasonGroup").addEventListener("change", function (e) {
     const wrap = document.getElementById("nonMemberOtherWrap");
@@ -603,14 +551,12 @@
       wrap.classList.remove("show");
     }
   });
-
   // 得知管道 -> 勾選「其他管道」時顯示補充文字欄
   document.getElementById("channelGroup").addEventListener("change", function () {
     const checked = document.querySelectorAll('input[name="know_channel"]:checked');
     const isOtherChecked = Array.from(checked).some(el => el.value === "其他管道");
     document.getElementById("channelOtherWrap").classList.toggle("show", isOtherChecked);
   });
-
   // 用餐目的 -> 選「其他」時顯示補充文字欄
   document.getElementById("purposeGroup").addEventListener("change", function (e) {
     const wrap = document.getElementById("purposeOtherWrap");
@@ -620,34 +566,26 @@
       wrap.classList.remove("show");
     }
   });
-
   // 回訪意願滑桿數值即時顯示
   const returnIntentInput = document.getElementById("return_intent");
   const returnIntentValue = document.getElementById("returnIntentValue");
   returnIntentInput.addEventListener("input", function () {
     returnIntentValue.textContent = returnIntentInput.value;
   });
-
   const form = document.getElementById("feedbackForm");
   const statusMsg = document.getElementById("statusMsg");
   const submitBtn = document.getElementById("submitBtn");
-
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-
     if (SCRIPT_URL.indexOf("PASTE_YOUR_APPS_SCRIPT") === 0) {
       statusMsg.textContent = "尚未設定資料接收網址，請參考 SETUP 指南完成部署。";
       statusMsg.style.color = "#C0455A";
       return;
     }
-
     document.getElementById("duration_sec").value = Math.round((Date.now() - START_TIME) / 1000);
-
     submitBtn.disabled = true;
     submitBtn.textContent = "送出中...";
-
     const formData = new FormData(form);
-
     fetch(SCRIPT_URL, {
       method: "POST",
       body: formData,
@@ -666,6 +604,5 @@
       });
   });
 </script>
-
 </body>
 </html>
